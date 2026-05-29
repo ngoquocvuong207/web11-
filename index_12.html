@@ -9,7 +9,7 @@
       font-family: Georgia, serif;
       background: #0d1117;
       color: #e6edf3;
-      max-width: 650px;
+      max-width: 600px;
       margin: 60px auto;
       padding: 0 20px;
     }
@@ -38,15 +38,10 @@
       color: #e6edf3;
       font-size: 15px;
       font-family: monospace;
-      outline: none;
       box-sizing: border-box;
     }
 
-    input[type="text"]:focus {
-      border-color: #58a6ff;
-    }
-
-    button {
+    button[type="submit"] {
       margin-top: 14px;
       padding: 10px 24px;
       background: #238636;
@@ -57,54 +52,8 @@
       cursor: pointer;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background: #2ea043;
-    }
-
-    #result {
-      margin-top: 28px;
-      display: none;
-    }
-
-    #result h2 {
-      font-size: 18px;
-      color: #58a6ff;
-      margin-bottom: 14px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    thead th {
-      background: #161b22;
-      padding: 10px 14px;
-      text-align: left;
-      color: #8b949e;
-      border-bottom: 2px solid #21262d;
-    }
-
-    tbody td {
-      padding: 11px 14px;
-      border-bottom: 1px solid #21262d;
-      font-family: monospace;
-    }
-
-    tbody tr:hover { background: #161b22; }
-
-    .proto    { color: #ff7b72; }
-    .domain   { color: #79c0ff; }
-    .path     { color: #d2a8ff; }
-    .query    { color: #56d364; }
-    .fragment { color: #e3b341; }
-
-    #error {
-      margin-top: 14px;
-      color: #f85149;
-      font-size: 14px;
-      display: none;
     }
   </style>
 </head>
@@ -112,68 +61,16 @@
 
   <h1>Form nhập URL giả lập</h1>
 
-  <label for="urlInput">Nhập URL cần phân tích:</label>
-  <input
-    type="text"
-    id="urlInput"
-    placeholder="https://example.com/products/list?page=2#top"
-  />
-  <button onclick="phanTichURL()">Phân tích URL</button>
-
-  <p id="error">URL không hợp lệ. Vui lòng nhập đúng định dạng (ví dụ: https://example.com/path?q=1#top)</p>
-
-  <div id="result">
-    <h2>Kết quả phân tích</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Thành phần</th>
-          <th>Giá trị</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
-  </div>
-
-  <script>
-    function phanTichURL() {
-      const input = document.getElementById("urlInput").value.trim();
-      const error = document.getElementById("error");
-      const result = document.getElementById("result");
-      const tbody = document.getElementById("tableBody");
-
-      error.style.display = "none";
-      result.style.display = "none";
-      tbody.innerHTML = "";
-
-      try {
-        const parsed = new URL(input);
-
-        const parts = [
-          { name: "Protocol",  value: parsed.protocol,  cls: "proto"    },
-          { name: "Domain",    value: parsed.hostname,  cls: "domain"   },
-          { name: "Path",      value: parsed.pathname,  cls: "path"     },
-          { name: "Query",     value: parsed.search || "—", cls: "query"    },
-          { name: "Fragment",  value: parsed.hash   || "—", cls: "fragment" }
-        ];
-
-        parts.forEach(p => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${p.name}</td><td class="${p.cls}">${p.value}</td>`;
-          tbody.appendChild(tr);
-        });
-
-        result.style.display = "block";
-      } catch (e) {
-        error.style.display = "block";
-      }
-    }
-
-    // Cho phép nhấn Enter để phân tích
-    document.getElementById("urlInput").addEventListener("keydown", function(e) {
-      if (e.key === "Enter") phanTichURL();
-    });
-  </script>
+  <form action="#" method="get">
+    <label for="urlInput">Nhập URL cần phân tích:</label>
+    <input
+      type="text"
+      id="urlInput"
+      name="url"
+      placeholder="https://example.com/products/list?page=2#top"
+    />
+    <button type="submit">Phân tích URL</button>
+  </form>
 
 </body>
 </html>
